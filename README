@@ -1,0 +1,10 @@
+セイコーエプソンのLCDコントローラS1D13781をSPI接続で使用するためのLinuxのframe buffer driverです。
+RaspberryPi上で開発しています(Raspbian Wheezyのカーネル3.10.36で動作確認しています。古いカーネルではビルドが通らなかったり正常に動作しなかったりするかもしれません)。
+まだfbの最低限の機能しか実装していません。解像度は480*272 24bpp固定になっています。
+とりあえずmmapしてVRAMに書き込むことはできます。
+bmpファイルを表示するサンプルプログラムも作っておきました(show_bmp.c)。
+SPIデバイスのドライバを動作させるにはこちらが便利です。
+https://github.com/msperl/spi-config
+以下のコマンドによってドライバのprobeが呼び出されます。
+insmod spi-config.ko devices=bus=0:cs=0:modalias=s1d13781fb:speed=32000000:force_release
+
