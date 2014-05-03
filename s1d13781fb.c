@@ -227,6 +227,17 @@ static int s1d13781fb_mmap(struct fb_info *info, struct vm_area_struct *vma)
 	return 0;
 }
 
+static int s1d13781fb_check_var(struct fb_var_screeninfo *var, struct fb_info *info)
+{
+	*var = info->var;
+	return 0;	   	
+}
+
+static int s1d13781fb_set_par(struct fb_info *info)
+{
+	return 0;
+}
+
 static struct fb_ops s1d13781fb_ops =
 {
 	.owner = THIS_MODULE,
@@ -234,6 +245,8 @@ static struct fb_ops s1d13781fb_ops =
 	.fb_copyarea = s1d13781fb_copyarea,
 	.fb_imageblit = s1d13781fb_imageblit,
 	.fb_mmap = s1d13781fb_mmap,
+	.fb_check_var = s1d13781fb_check_var,
+	.fb_set_par = s1d13781fb_set_par,
 };
 
 static void s1d13781fb_deferred_io(struct fb_info *info, struct list_head *pagelist)
@@ -333,7 +346,7 @@ static int s1d13781fb_probe(struct spi_device *spi)
 	info->var.red.offset 	= 16;
 	info->var.red.length 	= 8;
 	info->var.green.offset	= 8;
-	info->var.green.length	= 7;
+	info->var.green.length	= 8;
 	info->var.blue.offset	= 0;
 	info->var.blue.length	= 8;
 	info->var.transp.offset	= 0;
